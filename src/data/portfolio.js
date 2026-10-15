@@ -20,6 +20,7 @@ export const socialLinks = {
   github: '',
   linkedin: '',
   whatsapp: 'https://wa.me/229015120106',
+  email: 'issotinaabdoulwadoud@gmail.com',
 };
 
 export const skillGroups = [

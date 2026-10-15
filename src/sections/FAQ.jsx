@@ -17,9 +17,9 @@ const questions = [
     link: socialLinks.whatsapp,
   },
   {
-    question: 'Le formulaire de contact envoie-t-il déjà les messages ?',
+    question: 'Comment envoyer un message depuis le formulaire ?',
     answer:
-      'Pas encore : le service d’envoi n’est pas configuré. Le formulaire indique cette limite et ne prétend pas transmettre les informations saisies.',
+      'Renseignez vos coordonnées et votre message, puis choisissez WhatsApp ou e-mail. Cliquez ensuite sur le lien qui apparaît : votre message sera prérempli et vous pourrez le vérifier avant de confirmer son envoi.',
   },
 ];
 

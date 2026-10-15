@@ -1117,7 +1117,7 @@ h3,
   font-size: 0.88rem;
 }
 
-.contact-whatsapp {
+.contact-channel {
   display: flex;
   max-width: 355px;
   align-items: center;
@@ -1133,7 +1133,7 @@ h3,
     transform 160ms ease;
 }
 
-.contact-whatsapp:hover {
+.contact-channel:hover {
   transform: translateY(-2px);
   border-color: rgb(84 200 255 / 55%);
   background-color: rgb(84 200 255 / 5%);
@@ -1150,20 +1150,21 @@ h3,
   color: var(--accent-bright);
 }
 
-.contact-whatsapp > span:nth-child(2) {
+.contact-channel > span:nth-child(2) {
   display: grid;
   min-width: 0;
 }
 
-.contact-whatsapp strong {
+.contact-channel strong {
   color: var(--text);
   font-size: 0.82rem;
   font-weight: 600;
 }
 
-.contact-whatsapp small {
+.contact-channel small {
   color: var(--muted);
   font-size: 0.76rem;
+  overflow-wrap: anywhere;
 }
 
 .whatsapp-arrow {
@@ -1224,6 +1225,16 @@ h3,
 
 .submit-button {
   width: 100%;
+}
+
+.contact-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.prepared-contact-link {
+  margin-top: 12px;
 }
 
 .form-status {
@@ -1513,6 +1524,10 @@ h3,
 
   .contact-form {
     padding: 19px;
+  }
+
+  .contact-actions {
+    grid-template-columns: 1fr;
   }
 
   .faq-item summary {

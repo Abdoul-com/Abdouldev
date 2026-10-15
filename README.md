@@ -35,26 +35,18 @@ techniques, visuels et statuts non vérifiés restent explicitement à compléte
 
 ## Formulaire de contact
 
-Le formulaire valide les champs dans le navigateur, mais ne prétend pas envoyer les
-messages tant qu’aucun service n’est configuré. Pour l’activer :
-
-1. Configurez un endpoint HTTPS que vous contrôlez et qui accepte une requête JSON
-   `POST` contenant `name`, `email` et `message`.
-2. Copiez `.env.example` vers `.env.local` et renseignez `VITE_CONTACT_ENDPOINT` avec
-   l’URL publique de cet endpoint.
-3. Redémarrez Vite. Le formulaire affiche un succès uniquement si l’endpoint répond
-   avec un statut HTTP de réussite.
-
-Les secrets d’un éventuel service d’envoi doivent rester sur le serveur qui traite le
-formulaire, jamais dans les variables `VITE_*` ou dans le navigateur. Sans endpoint,
-l’interface indique clairement que le message n’a pas été transmis.
+Le formulaire vérifie les champs puis propose de préparer un message pour WhatsApp ou
+un e-mail à `issotinaabdoulwad@gmail.com`. Un lien apparaît ensuite pour ouvrir le message
+prérempli; le visiteur doit le vérifier et confirmer l’envoi dans l’application
+correspondante. Aucune donnée n’est envoyée automatiquement à un serveur et aucune clé
+secrète n’est nécessaire.
 
 ## Contenus à compléter après vérification
 
 - Les niveaux des compétences, les technologies utilisées pour EduBenin et les créations
   numériques, les statuts de ces projets, ainsi que leurs visuels réels.
-- Les URL GitHub et LinkedIn, les liens de démonstration et toute adresse e-mail de
-  contact. WhatsApp utilise le numéro communiqué dans `src/data/portfolio.js`.
+- Les URL GitHub et LinkedIn, les liens de démonstration et les visuels réels.
+  L’adresse e-mail et le numéro WhatsApp sont centralisés dans `src/data/portfolio.js`.
 - Le CV PDF et les formations complémentaires.
 
 Ces informations sont centralisées dans `src/data/portfolio.js`. Les projets dont les
@@ -97,8 +89,7 @@ L’indexation et le classement restent décidés par les moteurs de recherche.
 ## Publication
 
 Exécutez `npm run build` et publiez le dossier `dist/` sur un hébergeur de site statique
-compatible avec Vite (par exemple Netlify ou Vercel). Configurez `VITE_CONTACT_ENDPOINT`
-dans les variables d’environnement de l’hébergeur si le formulaire est activé, puis
-reconstruisez le site. Aucune route côté client ne nécessite de règle de réécriture. Pour
+compatible avec Vite (par exemple Netlify ou Vercel). Aucune configuration de service
+d’envoi n’est requise pour le formulaire. Aucune route côté client ne nécessite de règle de réécriture. Pour
 GitHub Pages sous une URL de projet, configurez également `base` dans `vite.config.js` avec
 le nom du dépôt avant de construire le site.

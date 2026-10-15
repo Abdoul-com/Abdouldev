@@ -1,51 +1,59 @@
 import { useState } from 'react';
 import SectionHeading from '../components/SectionHeading.jsx';
-import { socialLinks } from '../data/portfolio.js';
-
-const contactEndpoint = import.meta.env.VITE_CONTACT_ENDPOINT?.trim();
+import { profile, socialLinks } from '../data/portfolio.js';
 
 export default function Contact() {
   const [status, setStatus] = useState({ type: 'idle', message: '' });
+  const [preparedMessage, setPreparedMessage] = useState(null);
 
-  async function handleSubmit(event) {
+  function handleChange() {
+    setPreparedMessage(null);
+    setStatus({ type: 'idle', message: '' });
+  }
+
+  function handleSubmit(event) {
     event.preventDefault();
 
-    if (!contactEndpoint) {
+    setPreparedMessage(null);
+    const form = event.currentTarget;
+    const submitter = event.nativeEvent.submitter;
+    const formData = new FormData(form);
+    const name = String(formData.get('name') ?? '').trim();
+    const email = String(formData.get('email') ?? '').trim();
+    const message = String(formData.get('message') ?? '').trim();
+    const channel = submitter?.value;
+
+    if (!name || !email || !message) {
       setStatus({
         type: 'error',
-        message:
-          'Le formulaire n’est pas encore relié à un service d’envoi. Vos informations n’ont pas été transmises.',
+        message: 'Veuillez renseigner votre nom, une adresse e-mail valide et votre message.',
       });
       return;
     }
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
+    const messageBody = `Bonjour ${profile.givenName},\n\n${message}\n\nCordialement,\n${name}\n${email}`;
+    let destination;
 
-    setStatus({ type: 'loading', message: 'Envoi du message en cours…' });
-
-    try {
-      const response = await fetch(contactEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Le service de contact a répondu avec le statut ${response.status}.`);
-      }
-
-      form.reset();
-      setStatus({ type: 'success', message: 'Message envoyé. Merci pour votre prise de contact !' });
-    } catch (error) {
-      console.error('Échec de l’envoi du formulaire de contact.', error);
+    if (channel === 'email' && socialLinks.email) {
+      const subject = `Message depuis le portfolio - ${name}`;
+      destination = `mailto:${socialLinks.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(messageBody)}`;
+    } else if (channel === 'whatsapp' && socialLinks.whatsapp) {
+      const whatsappUrl = new URL(socialLinks.whatsapp);
+      whatsappUrl.searchParams.set('text', messageBody);
+      destination = whatsappUrl.toString();
+    } else {
       setStatus({
         type: 'error',
-        message:
-          'Le message n’a pas pu être envoyé. Réessayez plus tard ou contactez-moi par un autre moyen.',
+        message: 'Le moyen de contact choisi n’est pas disponible.',
       });
+      return;
     }
+
+    setPreparedMessage({ channel, destination });
+    setStatus({
+      type: 'success',
+      message: 'Votre message est prêt. Cliquez sur le lien ci-dessous, puis confirmez son envoi dans l’application.',
+    });
   }
 
   return (
@@ -53,13 +61,13 @@ export default function Contact() {
       <SectionHeading
         eyebrow="Contact"
         title="Construisons la suite ensemble."
-        description="Une idée, une proposition de stage ou une envie de collaborer ? Laissez-moi un message."
+        description="Une idée, une proposition de stage ou une envie de collaborer ? Envoyez-moi un message par WhatsApp ou par e-mail."
       />
       <div className="contact-layout">
         <div className="contact-aside">
           <p>
-            Vous préférez un échange direct ? Écrivez-moi sur WhatsApp. Le formulaire
-            ci-contre reste disponible, mais son envoi par e-mail nécessite une configuration.
+            Choisissez votre moyen de contact : le message sera préparé avec vos coordonnées,
+            puis vous pourrez le vérifier et confirmer son envoi dans WhatsApp ou votre messagerie.
           </p>
           <div className="contact-location">
             <span className="location-indicator" aria-hidden="true" />
@@ -67,7 +75,7 @@ export default function Contact() {
           </div>
           {socialLinks.whatsapp && (
             <a
-              className="contact-whatsapp"
+              className="contact-channel"
               href={socialLinks.whatsapp}
               target="_blank"
               rel="noreferrer"
@@ -84,6 +92,20 @@ export default function Contact() {
               </span>
             </a>
           )}
+          {socialLinks.email && (
+            <a className="contact-channel" href={`mailto:${socialLinks.email}`}>
+              <span className="whatsapp-icon" aria-hidden="true">
+                @
+              </span>
+              <span>
+                <strong>E-mail</strong>
+                <small>{socialLinks.email}</small>
+              </span>
+              <span className="whatsapp-arrow" aria-hidden="true">
+                →
+              </span>
+            </a>
+          )}
         </div>
         <form className="contact-form" onSubmit={handleSubmit}>
           <div className="form-row">
@@ -93,6 +115,7 @@ export default function Contact() {
               id="contact-name"
               maxLength="100"
               name="name"
+              onChange={handleChange}
               placeholder="Nom et prénom"
               required
             />
@@ -104,6 +127,7 @@ export default function Contact() {
               id="contact-email"
               maxLength="254"
               name="email"
+              onChange={handleChange}
               placeholder="vous@exemple.com"
               required
               type="email"
@@ -115,19 +139,47 @@ export default function Contact() {
               id="contact-message"
               maxLength="5000"
               name="message"
+              onChange={handleChange}
               placeholder="Dites-moi quelques mots sur votre demande…"
               required
               rows="5"
             />
           </div>
-          <button
-            className="button button-primary submit-button"
-            disabled={status.type === 'loading'}
-            type="submit"
-          >
-            {status.type === 'loading' ? 'Envoi en cours…' : 'Envoyer le message'}
-            {status.type !== 'loading' && <span aria-hidden="true">↗</span>}
-          </button>
+          <div className="contact-actions">
+            {socialLinks.whatsapp && (
+              <button
+                className="button button-primary submit-button"
+                name="channel"
+                type="submit"
+                value="whatsapp"
+              >
+                Préparer sur WhatsApp <span aria-hidden="true">↗</span>
+              </button>
+            )}
+            {socialLinks.email && (
+              <button
+                className="button button-secondary submit-button"
+                name="channel"
+                type="submit"
+                value="email"
+              >
+                Préparer un e-mail <span aria-hidden="true">↗</span>
+              </button>
+            )}
+          </div>
+          {preparedMessage && (
+            <a
+              className={`button ${preparedMessage.channel === 'whatsapp' ? 'button-primary' : 'button-secondary'} submit-button prepared-contact-link`}
+              href={preparedMessage.destination}
+              rel="noreferrer"
+              target="_blank"
+            >
+              {preparedMessage.channel === 'whatsapp'
+                ? 'Ouvrir WhatsApp avec le message'
+                : 'Ouvrir le brouillon d’e-mail'}
+              <span aria-hidden="true">↗</span>
+            </a>
+          )}
           <p
             aria-live="polite"
             className={`form-status${status.type === 'error' ? ' is-error' : ''}${status.type === 'success' ? ' is-success' : ''}`}
