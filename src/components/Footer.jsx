@@ -26,7 +26,12 @@ export default function Footer() {
         {availableSocialLinks.length > 0 && (
           <div className="footer-socials" aria-label="Réseaux sociaux">
             {availableSocialLinks.map(([key, url]) => (
-              <a href={url} key={key} target="_blank" rel="noreferrer">
+              <a
+                href={key === 'email' ? `mailto:${url}` : url}
+                key={key}
+                target={key === 'email' ? undefined : '_blank'}
+                rel={key === 'email' ? undefined : 'noreferrer'}
+              >
                 {socialLabels[key]}
               </a>
             ))}
