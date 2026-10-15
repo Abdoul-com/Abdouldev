@@ -1,5 +1,7 @@
 export const profile = {
   name: 'Issotina Abdou Wadoudou',
+  givenName: 'Issotina Abdou',
+  familyName: 'Wadoudou',
   title: 'Développeur Web en devenir',
   location: 'Cotonou, Bénin',
   education: 'BAC+2 en informatique de gestion',
@@ -17,7 +19,7 @@ export const profile = {
 export const socialLinks = {
   github: '',
   linkedin: '',
-  whatsapp: '',
+  whatsapp: 'https://wa.me/229015120106',
 };
 
 export const skillGroups = [
@@ -49,9 +51,10 @@ export const projects = [
     category: 'Application de gestion scolaire',
     description:
       'Application couvrant la gestion des élèves, des inscriptions, des paiements, du personnel, des notes et des bulletins.',
+    scope: ['Élèves', 'Inscriptions', 'Paiements', 'Personnel', 'Notes', 'Bulletins'],
     technologies: [],
-    status: 'À confirmer',
-    preview: 'Aperçu à ajouter',
+    status: 'Statut à confirmer',
+    preview: 'Périmètre fonctionnel',
     github: '',
     demo: '',
   },
@@ -61,8 +64,8 @@ export const projects = [
     description:
       'Portfolio personnel conçu pour présenter mon parcours, mes domaines d’intérêt et mes projets.',
     technologies: ['React', 'Vite', 'JavaScript', 'Tailwind CSS'],
-    status: 'En cours',
-    preview: 'Aperçu à ajouter',
+    status: 'En évolution',
+    preview: 'Aperçu du site à ajouter',
     github: '',
     demo: '',
   },
@@ -72,7 +75,7 @@ export const projects = [
     description:
       'Sélection de supports publicitaires et de contenus de communication numérique.',
     technologies: [],
-    status: 'À confirmer',
+    status: 'Visuels à ajouter',
     preview: 'Visuels à ajouter',
     github: '',
     demo: '',
@@ -85,5 +88,6 @@ export const sectionLinks = [
   { href: '#competences', label: 'Compétences' },
   { href: '#projets', label: 'Projets' },
   { href: '#formation', label: 'Formation' },
+  { href: '#faq', label: 'FAQ' },
   { href: '#contact', label: 'Contact' },
 ];

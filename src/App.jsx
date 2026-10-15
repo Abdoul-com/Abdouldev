@@ -3,10 +3,12 @@ import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import About from './sections/About.jsx';
 import Contact from './sections/Contact.jsx';
+import FAQ from './sections/FAQ.jsx';
 import Formation from './sections/Formation.jsx';
 import Hero from './sections/Hero.jsx';
 import Projects from './sections/Projects.jsx';
 import Skills from './sections/Skills.jsx';
+import ScrollUtilities from './components/ScrollUtilities.jsx';
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,9 +25,11 @@ export default function App() {
         <Skills />
         <Projects />
         <Formation />
+        <FAQ />
         <Contact />
       </main>
       <Footer />
+      <ScrollUtilities />
     </>
   );
 }

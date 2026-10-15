@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SectionHeading from '../components/SectionHeading.jsx';
+import { socialLinks } from '../data/portfolio.js';
 
 const contactEndpoint = import.meta.env.VITE_CONTACT_ENDPOINT?.trim();
 
@@ -57,13 +58,32 @@ export default function Contact() {
       <div className="contact-layout">
         <div className="contact-aside">
           <p>
-            Le formulaire demande un service d’envoi configuré. Tant qu’il ne l’est pas, les
-            données saisies restent dans cette page et ne sont pas transmises.
+            Vous préférez un échange direct ? Écrivez-moi sur WhatsApp. Le formulaire
+            ci-contre reste disponible, mais son envoi par e-mail nécessite une configuration.
           </p>
           <div className="contact-location">
             <span className="location-indicator" aria-hidden="true" />
             <span>Cotonou, Bénin</span>
           </div>
+          {socialLinks.whatsapp && (
+            <a
+              className="contact-whatsapp"
+              href={socialLinks.whatsapp}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="whatsapp-icon" aria-hidden="true">
+                ↗
+              </span>
+              <span>
+                <strong>WhatsApp</strong>
+                <small>+229 015 120 106</small>
+              </span>
+              <span className="whatsapp-arrow" aria-hidden="true">
+                →
+              </span>
+            </a>
+          )}
         </div>
         <form className="contact-form" onSubmit={handleSubmit}>
           <div className="form-row">

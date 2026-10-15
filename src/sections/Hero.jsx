@@ -1,4 +1,4 @@
-import { profile } from '../data/portfolio.js';
+import { profile, socialLinks } from '../data/portfolio.js';
 
 export default function Hero() {
   return (
@@ -10,19 +10,27 @@ export default function Hero() {
         </p>
         <p className="hero-overline">{profile.title}</p>
         <h1 id="hero-title">
-          Bonjour, je suis
-          <span>{profile.name}</span>
+          <span className="hero-greeting">Bonjour, je suis</span>
+          <span className="hero-name">{profile.givenName}</span>
+          <span className="hero-name hero-name-accent">{profile.familyName}</span>
         </h1>
         <p className="hero-description">
           En formation en développement web, je m’intéresse à la création de solutions
           numériques utiles, à la croisée de la programmation et de l’informatique de gestion.
         </p>
         <div className="hero-actions">
-          <a className="button button-primary" href="#projets">
-            Découvrir mes projets <span aria-hidden="true">↗</span>
-          </a>
-          <a className="button button-secondary" href="#contact">
-            Me contacter
+          {socialLinks.whatsapp && (
+            <a
+              className="button button-primary"
+              href={socialLinks.whatsapp}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Échanger sur WhatsApp <span aria-hidden="true">↗</span>
+            </a>
+          )}
+          <a className="button button-secondary" href="#projets">
+            Découvrir mes projets
           </a>
         </div>
         <p className="hero-location">

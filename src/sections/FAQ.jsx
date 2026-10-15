@@ -1,0 +1,55 @@
+import SectionHeading from '../components/SectionHeading.jsx';
+import { profile, socialLinks } from '../data/portfolio.js';
+
+const questions = [
+  {
+    question: 'Quels domaines vous intéressent ?',
+    answer: `Je m’intéresse à ${profile.domains.join(', ').toLowerCase()}. Je poursuis mon apprentissage et ne présente pas ces domaines comme des expertises confirmées.`,
+  },
+  {
+    question: 'Quels projets sont présentés sur le portfolio ?',
+    answer:
+      'Les projets prévus sont EduBenin, une application de gestion scolaire, ce portfolio personnel et des créations numériques. Les technologies, visuels et liens sont ajoutés uniquement lorsqu’ils sont confirmés.',
+  },
+  {
+    question: 'Comment vous contacter ?',
+    answer: `Je suis basé à ${profile.location}. Vous pouvez me joindre directement sur WhatsApp.`,
+    link: socialLinks.whatsapp,
+  },
+  {
+    question: 'Le formulaire de contact envoie-t-il déjà les messages ?',
+    answer:
+      'Pas encore : le service d’envoi n’est pas configuré. Le formulaire indique cette limite et ne prétend pas transmettre les informations saisies.',
+  },
+];
+
+export default function FAQ() {
+  return (
+    <section className="section-wrap faq-section" id="faq">
+      <SectionHeading
+        eyebrow="FAQ"
+        title="Quelques réponses utiles."
+        description="Mon parcours, mes projets et les moyens de me contacter."
+      />
+      <div className="faq-list">
+        {questions.map(({ question, answer, link }, index) => (
+          <details className="faq-item" key={question}>
+            <summary>
+              <span className="faq-number">{String(index + 1).padStart(2, '0')}</span>
+              <span className="faq-question">{question}</span>
+              <span className="faq-toggle" aria-hidden="true" />
+            </summary>
+            <div className="faq-answer">
+              <p>{answer}</p>
+              {link && (
+                <a href={link} target="_blank" rel="noreferrer">
+                  Écrire sur WhatsApp <span aria-hidden="true">↗</span>
+                </a>
+              )}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  );
+}

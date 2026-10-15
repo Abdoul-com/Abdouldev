@@ -129,6 +129,22 @@ h3,
   backdrop-filter: blur(18px);
 }
 
+.scroll-progress {
+  position: fixed;
+  z-index: 30;
+  inset: 0 0 auto;
+  height: 2px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.scroll-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #36b9f4, #a3e9ff);
+  box-shadow: 0 0 10px rgb(84 200 255 / 55%);
+}
+
 .nav-shell {
   @apply mx-auto flex w-full items-center justify-between px-6;
   max-width: var(--content-width);
@@ -201,10 +217,47 @@ h3,
   transition: color 160ms ease;
 }
 
+.nav-links a {
+  position: relative;
+}
+
 .nav-links a:hover,
 .site-footer nav a:hover,
 .footer-socials a:hover {
   color: var(--accent-bright);
+}
+
+.nav-links a[aria-current="location"] {
+  color: var(--text);
+}
+
+.nav-links a[aria-current="location"]::after {
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  content: "";
+}
+
+.nav-links .nav-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 13px;
+  border: 1px solid rgb(84 200 255 / 35%);
+  border-radius: 8px;
+  background: var(--accent-glow);
+  color: var(--accent-bright);
+  font-weight: 600;
+}
+
+.nav-links .nav-contact-link:hover {
+  border-color: var(--accent);
+  background: rgb(84 200 255 / 19%);
+  color: var(--text);
 }
 
 .menu-toggle {
@@ -303,7 +356,21 @@ h3,
 
 .hero h1 span {
   display: block;
-  margin-top: 8px;
+}
+
+.hero h1 .hero-greeting {
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 0.3em;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.hero h1 .hero-name {
+  color: var(--text);
+}
+
+.hero h1 .hero-name-accent {
   color: var(--accent-bright);
 }
 
@@ -668,6 +735,12 @@ h3,
   border-color: rgb(84 200 255 / 34%);
 }
 
+.project-card-featured {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+}
+
 .project-preview {
   position: relative;
   display: flex;
@@ -690,6 +763,33 @@ h3,
   border: 1px solid rgb(84 200 255 / 20%);
   border-radius: 50%;
   content: "";
+}
+
+.project-card-featured .project-preview {
+  min-height: 100%;
+  border-right: 1px solid var(--border);
+  border-bottom: 0;
+  background-color: #0c1722;
+  background-image:
+    linear-gradient(rgb(112 180 214 / 6%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(112 180 214 / 6%) 1px, transparent 1px);
+  background-size: 31px 31px;
+}
+
+.project-card-featured .project-preview::after {
+  width: 210px;
+  height: 210px;
+  border-color: rgb(84 200 255 / 28%);
+  box-shadow:
+    0 0 0 23px rgb(84 200 255 / 4%),
+    0 0 70px rgb(84 200 255 / 9%);
+}
+
+.project-card-featured .preview-mark {
+  color: var(--accent-bright);
+  font-size: clamp(4.5rem, 9vw, 7rem);
+  letter-spacing: -0.1em;
+  text-shadow: 0 0 36px rgb(84 200 255 / 25%);
 }
 
 .preview-2 {
@@ -733,6 +833,11 @@ h3,
   padding: 19px;
 }
 
+.project-card-featured .project-content {
+  justify-content: center;
+  padding: clamp(22px, 4vw, 42px);
+}
+
 .project-meta {
   display: flex;
   flex-wrap: wrap;
@@ -766,6 +871,34 @@ h3,
   font-size: 0.84rem;
 }
 
+.project-scope {
+  margin-top: 23px;
+}
+
+.scope-label {
+  color: #c9d5e5;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.project-scope ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.project-scope li {
+  padding: 5px 9px;
+  border: 1px solid rgb(84 200 255 / 18%);
+  border-radius: 6px;
+  background: rgb(84 200 255 / 5%);
+  color: #b9d5e6;
+  font-size: 0.7rem;
+}
+
 .project-tech {
   display: flex;
   flex-wrap: wrap;
@@ -797,6 +930,123 @@ h3,
 
 .formation-section {
   border-top: 1px solid var(--border);
+}
+
+.faq-section {
+  padding-top: 96px;
+  padding-bottom: 96px;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: var(--header-height);
+}
+
+.faq-list {
+  max-width: 820px;
+  border-top: 1px solid var(--border);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-item summary {
+  display: grid;
+  min-height: 76px;
+  grid-template-columns: 42px 1fr 30px;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-number {
+  color: var(--accent);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.75rem;
+}
+
+.faq-question {
+  color: #dce5f1;
+  font-size: 0.94rem;
+  font-weight: 500;
+}
+
+.faq-toggle {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  justify-self: end;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+}
+
+.faq-toggle::before,
+.faq-toggle::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 1px;
+  background: var(--accent-bright);
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.faq-toggle::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  transition: transform 160ms ease;
+}
+
+.faq-item[open] .faq-toggle::after {
+  transform: translate(-50%, -50%);
+}
+
+.faq-answer {
+  display: grid;
+  gap: 12px;
+  padding: 0 48px 22px 54px;
+}
+
+.faq-answer p {
+  max-width: 680px;
+  color: var(--muted);
+  font-size: 0.87rem;
+}
+
+.faq-answer a {
+  width: fit-content;
+  color: var(--accent-bright);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.back-to-top {
+  position: fixed;
+  z-index: 20;
+  right: 24px;
+  bottom: 24px;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgb(84 200 255 / 37%);
+  border-radius: 12px;
+  background: #101b29;
+  box-shadow: 0 8px 28px rgb(0 0 0 / 30%);
+  color: var(--accent-bright);
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
+  background: #16283a;
 }
 
 .education-card {
@@ -865,6 +1115,60 @@ h3,
   margin-top: 25px;
   color: #c3cedd;
   font-size: 0.88rem;
+}
+
+.contact-whatsapp {
+  display: flex;
+  max-width: 355px;
+  align-items: center;
+  gap: 13px;
+  margin-top: 23px;
+  padding: 14px;
+  border: 1px solid rgb(84 200 255 / 25%);
+  border-radius: 10px;
+  background: linear-gradient(115deg, rgb(84 200 255 / 9%), transparent 85%);
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.contact-whatsapp:hover {
+  transform: translateY(-2px);
+  border-color: rgb(84 200 255 / 55%);
+  background-color: rgb(84 200 255 / 5%);
+}
+
+.whatsapp-icon {
+  display: grid;
+  width: 37px;
+  height: 37px;
+  flex: none;
+  place-items: center;
+  border: 1px solid rgb(84 200 255 / 27%);
+  border-radius: 9px;
+  color: var(--accent-bright);
+}
+
+.contact-whatsapp > span:nth-child(2) {
+  display: grid;
+  min-width: 0;
+}
+
+.contact-whatsapp strong {
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.contact-whatsapp small {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.whatsapp-arrow {
+  margin-left: auto;
+  color: var(--accent-bright);
 }
 
 .contact-form {
@@ -1022,6 +1326,12 @@ h3,
     padding: 10px 0;
   }
 
+  .nav-links .nav-contact-link {
+    width: fit-content;
+    margin-top: 7px;
+    padding: 9px 13px;
+  }
+
   .hero {
     min-height: auto;
     grid-template-columns: minmax(0, 1fr) minmax(230px, 0.75fr);
@@ -1059,6 +1369,10 @@ h3,
 
   .projects-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-card-featured {
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
   }
 }
 
@@ -1122,6 +1436,7 @@ h3,
   .about-section,
   .skills-section,
   .formation-section,
+  .faq-section,
   .contact-section {
     padding-top: 76px;
     padding-bottom: 76px;
@@ -1165,6 +1480,20 @@ h3,
     min-height: 175px;
   }
 
+  .project-card-featured {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card-featured .project-preview {
+    min-height: 170px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .project-card-featured .project-content {
+    padding: 21px;
+  }
+
   .education-card {
     align-items: flex-start;
     flex-wrap: wrap;
@@ -1184,6 +1513,28 @@ h3,
 
   .contact-form {
     padding: 19px;
+  }
+
+  .faq-item summary {
+    min-height: 70px;
+    grid-template-columns: 30px 1fr 26px;
+    gap: 9px;
+  }
+
+  .faq-question {
+    font-size: 0.86rem;
+  }
+
+  .faq-answer {
+    padding-right: 4px;
+    padding-left: 39px;
+  }
+
+  .back-to-top {
+    right: 15px;
+    bottom: 15px;
+    width: 42px;
+    height: 42px;
   }
 
   .footer-main {

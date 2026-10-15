@@ -8,8 +8,8 @@ export default function Projects() {
       <div className="section-wrap">
         <SectionHeading
           eyebrow="Projets"
-          title="Des idées en construction."
-          description="Technologies, visuels et liens seront complétés au fur et à mesure de la vérification de chaque projet."
+          title="Des projets, avec leur contexte."
+          description="Voici les projets que je présente. Je précise leur état, leur périmètre et leurs technologies sans ajouter de résultats ou de visuels non vérifiés."
         />
         <div className="projects-grid">
           {projects.map((project, index) => (

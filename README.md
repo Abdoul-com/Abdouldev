@@ -21,11 +21,17 @@ production :
 
 ```powershell
 npm.cmd run build
+npm.cmd run test:seo
 npm.cmd run preview
 ```
 
 Dans un terminal qui autorise les scripts npm, les commandes équivalentes sont
-`npm install`, `npm run dev`, `npm run build` et `npm run preview`.
+`npm install`, `npm run dev`, `npm run build`, `npm run test:seo` et `npm run preview`.
+
+La page comprend une navigation indiquant la section consultée, une progression de
+défilement, un retour au haut de page et une FAQ accessible au clavier. Dans les projets,
+EduBenin est présenté en étude de cas avec son périmètre fonctionnel fourni; les détails
+techniques, visuels et statuts non vérifiés restent explicitement à compléter.
 
 ## Formulaire de contact
 
@@ -47,9 +53,9 @@ l’interface indique clairement que le message n’a pas été transmis.
 
 - Les niveaux des compétences, les technologies utilisées pour EduBenin et les créations
   numériques, les statuts de ces projets, ainsi que leurs visuels réels.
-- Les URL GitHub, LinkedIn, WhatsApp, les liens de démonstration et toute adresse e-mail
-  de contact. Aucun lien externe personnel n’est publié tant qu’il n’est pas renseigné.
-- Le numéro de téléphone, le CV PDF et les formations complémentaires.
+- Les URL GitHub et LinkedIn, les liens de démonstration et toute adresse e-mail de
+  contact. WhatsApp utilise le numéro communiqué dans `src/data/portfolio.js`.
+- Le CV PDF et les formations complémentaires.
 
 Ces informations sont centralisées dans `src/data/portfolio.js`. Les projets dont les
 informations ne sont pas confirmées affichent un état d’attente plutôt qu’un résultat ou
