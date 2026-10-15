@@ -3,8 +3,10 @@ import Brand from './Brand.jsx';
 
 const socialLabels = {
   github: 'GitHub',
+  facebook: 'Facebook',
   linkedin: 'LinkedIn',
   whatsapp: 'WhatsApp',
+  email: 'E-mail',
 };
 
 export default function Footer() {

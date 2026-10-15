@@ -45,8 +45,9 @@ secrète n’est nécessaire.
 
 - Les niveaux des compétences, les technologies utilisées pour EduBenin et les créations
   numériques, les statuts de ces projets, ainsi que leurs visuels réels.
-- Les URL GitHub et LinkedIn, les liens de démonstration et les visuels réels.
-  L’adresse e-mail et le numéro WhatsApp sont centralisés dans `src/data/portfolio.js`.
+- Les URL LinkedIn, les liens de démonstration et les visuels réels.
+  GitHub, Facebook, l’adresse e-mail et WhatsApp sont centralisés dans
+  `src/data/portfolio.js`.
 - Le CV PDF et les formations complémentaires.
 
 Ces informations sont centralisées dans `src/data/portfolio.js`. Les projets dont les
@@ -82,9 +83,9 @@ Quand l’URL HTTPS réelle du site est connue :
    la page d’accueil et surveiller le rapport d’indexation.
 
 Tant que `VITE_SITE_URL` est vide, le build ne fabrique ni URL canonique ni sitemap; le
-HTML pré-rendu et les métadonnées sans URL restent disponibles. Renseignez séparément les
-URL exactes de GitHub et LinkedIn avant de les ajouter aux profils publics ou à Schema.org.
-L’indexation et le classement restent décidés par les moteurs de recherche.
+HTML pré-rendu et les métadonnées sans URL restent disponibles. LinkedIn n’est pas affiché
+tant que son URL réelle n’a pas été fournie. L’indexation et le classement restent décidés
+par les moteurs de recherche.
 
 ## Publication
 

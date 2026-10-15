@@ -32,8 +32,15 @@ assert.match(html, /id="contact-name"/);
 assert.match(html, /Préparer sur WhatsApp/);
 assert.match(html, /Préparer un e-mail/);
 assert.match(html, /issotinaabdoulwadoud@gmail\.com/);
+assert.match(html, /href="https:\/\/github\.com\/Abdoul-com"/);
+assert.match(html, /href="https:\/\/www\.facebook\.com\/share\/1F28kAdSxv\/"/);
 assert.match(html, /alt="Portrait d’Issotina Abdou Wadoudou"/);
-assert.ok(jsonLd.some((schema) => schema['@type'] === 'Person'));
+const personSchema = jsonLd.find((schema) => schema['@type'] === 'Person');
+assert.ok(personSchema);
+assert.deepEqual(personSchema.sameAs, [
+  'https://github.com/Abdoul-com',
+  'https://www.facebook.com/share/1F28kAdSxv/',
+]);
 assert.ok(jsonLd.some((schema) => schema['@type'] === 'WebSite'));
 assert.match(await readFile(resolve(output, 'robots.txt'), 'utf8'), /User-agent: \*\s+Allow: \//);
 assert.match(await readFile(resolve(output, '404.html'), 'utf8'), /noindex, follow/);

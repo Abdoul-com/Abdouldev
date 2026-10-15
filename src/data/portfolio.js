@@ -17,7 +17,8 @@ export const profile = {
 };
 
 export const socialLinks = {
-  github: '',
+  github: 'https://github.com/Abdoul-com',
+  facebook: 'https://www.facebook.com/share/1F28kAdSxv/',
   linkedin: '',
   whatsapp: 'https://wa.me/229015120106',
   email: 'issotinaabdoulwadoud@gmail.com',
